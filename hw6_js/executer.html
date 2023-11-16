@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Graph Handler</title>
+</head>
+<body>
+
+    <canvas id="pictureBox1" width="100" height="100">
+    </canvas>
+
+    <canvas id="pictureBox2" width="1000" height="1000">
+    </canvas>
+
+    <canvas id="pictureBox3" width="1000" height="1000">
+    </canvas>
+
+
+    <script src="./Adversary.js"></script>
+    <script src="./Histogram.js"></script>
+    <script src="./LineChart.js"></script>
+
+    <script>
+        function GraphHandler() {
+            
+            // Genera gli attacchi
+            var adv = new Adversary(50, 30, 0.5);
+            adv.generateAttacks();
+
+            // Recupera i dati
+            var data2 = adv.getLineChart2AttackList();
+
+            var chart1 = new LineChart(document.getElementById('pictureBox1'));
+            chart1.drawChart(data2);
+            var chart2 = new LineChart(document.getElementById('pictureBox2'));
+            chart2.drawChart(data2);
+            var chart3 = new LineChart(document.getElementById('pictureBox3'));
+            chart3.drawChart(data2);
+
+            var S1 = 20;
+            var S2 = 60;
+            var S3 = 100;
+
+            var histogramDistChart1 = adv.createCompleteHistogramData(data1, S1);
+            var histogramDistChart2 = adv.createCompleteHistogramData(data2, S2);
+            var histogramDistChart3 = adv.createCompleteHistogramData(data2, S3);
+            
+
+            var histogram1 = new Histogram(chart1, histogramDistChart1, S1,'');
+            var histogram2 = new Histogram(chart2, histogramDistChart2, S2,'');
+            var histogram3 = new Histogram(chart3, histogramDistChart3, S3,'c');
+            
+        }
+    </script>
+</body>
+</html>
